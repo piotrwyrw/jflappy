@@ -2,26 +2,22 @@ package org.piotrwyrw.flappy.physics;
 
 import org.piotrwyrw.flappy.Game;
 
-public class Bird extends GameObject {
+public class CircularObject extends GameObject {
 
     private double boundingRadius;
 
-    public Bird(Vector acceleration, Vector velocity, Vector location, double boundingRadius) {
+    public CircularObject(Vector acceleration, Vector velocity, Vector location, double boundingRadius) {
         super(acceleration, velocity, location);
         this.boundingRadius = boundingRadius;
     }
 
-    public Bird(Vector location, double boundingRadius) {
+    public CircularObject(Vector location, double boundingRadius) {
         super(location);
         this.boundingRadius = boundingRadius;
     }
 
     public double boundingRadius() {
         return boundingRadius;
-    }
-
-    public void jump(double force) {
-        this.velocity().setY(-(force));
     }
 
     public boolean alive(PhysicalEnvironment env) {

@@ -45,21 +45,43 @@ public class GameObject {
     public void performBasicUpdates(PhysicalEnvironment env) {
         this.location.add(this.velocity);
         this.velocity.add(this.acceleration);
-        this.acceleration.setY(env.gravitationalAcceleration());
+        if (env.gravity())
+            this.acceleration.setY(env.gravitationalAcceleration());
+    }
+
+    public void jump(double force) {
+        this.velocity().setY(-(force));
+    }
+
+    public void pushLeft(double force) {
+        this.velocity.subX(force);
+    }
+
+    public void pushRight(double force) {
+        this.velocity.addX(force);
+    }
+
+    public void pushUp(double force) {
+        this.velocity.subY(force);
+    }
+
+    public void pushDown(double force) {
+        this.velocity.addY(force);
     }
 
     // Meant to @Override
+
     public void performCustomUpdates(PhysicalEnvironment env) {
         return;
     }
-
     // Meant to @Override
+
     public boolean customState(PhysicalEnvironment env) {
         return false;
     }
-
     // Meant to @Override
-    public boolean collidesWith(GameObject oother) {
+
+    public boolean collidesWith(GameObject other) {
         return false;
     }
 

@@ -66,7 +66,7 @@ public class GameLoop {
 
         // Let the physics / logic engine run (kinda) independently of the rendering stuff
         new Thread(() -> {
-            this.mgr.currentState().tick(evt);
+            this.mgr.currentState().tick(evt, this, this.mgr);
         }).start();
 
         // DO NOT make the following methods run in a separate thread

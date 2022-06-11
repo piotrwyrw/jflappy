@@ -63,6 +63,22 @@ public class Vector {
         divide(m);
     }
 
+    public void addX(double d) {
+        this.x += d;
+    }
+
+    public void addY(double d) {
+        this.y =+ d;
+    }
+
+    public void subX(double d) {
+        this.x -= d;
+    }
+
+    public void subY(double d) {
+        this.y -= d;
+    }
+
     public double squaredDistanceTo(Vector other) {
         return Math.pow(x() - other.x(), 2.0) + Math.pow(y() - other.y(), 2.0);
     }

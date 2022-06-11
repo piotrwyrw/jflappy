@@ -30,9 +30,10 @@ public class Tools {
     public static BufferedImage grabImage(String path) {
         File f = new File("assets/" + path);
         if (!f.exists()) {
-            throw new RuntimeException("File does not exist: " + path);
+            System.out.println("Required image not found: 'assets/" + path + "'");
+            System.exit(0);
         }
-        Image i;
+        Image i = null;
         try {
             i = ImageIO.read(f);
         } catch (IOException e) {
@@ -41,11 +42,26 @@ public class Tools {
         return toBufferedImage(i);
     }
 
+    public static BufferedImage grabScaledImage(String path, int w, int h) {
+        BufferedImage img = grabImage(path);
+        return toBufferedImage(img.getScaledInstance(w, h, BufferedImage.SCALE_SMOOTH));
+    }
+
     public static BufferedImage deepCopy(BufferedImage bi) {
         ColorModel cm = bi.getColorModel();
         boolean premul = cm.isAlphaPremultiplied();
         WritableRaster raster = bi.copyData(null);
         return new BufferedImage(cm, raster, premul, null);
+    }
+
+    public static double clamp(double min, double max, double x) {
+        if (x > max) {
+            return max;
+        }
+        if (x < min) {
+            return min;
+        }
+        return x;
     }
 
 }
