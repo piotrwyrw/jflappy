@@ -17,7 +17,7 @@ public class InGameState extends GameState {
     public static final int         BIRD_DIMENSION  = 50;
     public static final double      GRAVITY_ACCEL   = 0.3;
     public static final double      JUMP_STRENGTH   = 7.0;
-    public static final int         PIPE_FREE       = 350;
+    public int         PIPE_FREE       = 350;
     public static final int         PIPE_WIDTH      = 100;
 
     private BufferedImage title;
@@ -32,6 +32,7 @@ public class InGameState extends GameState {
     private boolean canJump;
     private boolean collide;
     private boolean trail;
+    private boolean pause = false;
 
     private int score = 0;
 
@@ -74,6 +75,9 @@ public class InGameState extends GameState {
 
     @Override
     public void tick(GameEvent evt, GameLoop game, StateManager mgr) {
+        if (pause) {
+            return;
+        }
         world.update();
 
         CircularObject b = world.extractBird();
@@ -96,6 +100,10 @@ public class InGameState extends GameState {
                 if (!first.collidesWith(b) && !last.collidesWith(b) && !pipe.equals(lastPipe)) {
                     this.lastPipe = pipe;    // Avoid multiple points from one pipe
                     this.score ++;
+                    PIPE_FREE --;
+                    if (PIPE_FREE <= BIRD_DIMENSION + 10) {
+                        PIPE_FREE = 350;
+                    }
                 } else  if (!pipe.equals(lastPipe)) {
                     b.pushLeft(20);
 
@@ -125,6 +133,9 @@ public class InGameState extends GameState {
         }
 
         KeyboardEvent e = (KeyboardEvent) evt;
+        if (e.key() == KeyEvent.VK_P) {
+            this.pause = true;
+        }
         if (e.key() != KeyEvent.VK_SPACE) {
             return;
         }
