@@ -10,3 +10,4 @@ My Attempt on recreating Flappy Bird in Java with an overkill game engine.
 - Use OpenGL/LWJGL instead of AWT
 - A main menu
 - Code cleanup
+- Game slows down significantly after a longer playtime - most lileky due to the faulty parallax
